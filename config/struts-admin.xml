@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="admin" namespace="/admin" extends="struts-default">
+		<!-- users actions -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="list">/admin/modules/users/view.jsp</result>
+			<result name="error">/admin/modules/users/view.jsp</result>
+			<result name="bind">/admin/modules/users/edit.jsp</result>
+			<result name="delete" type="chain">user_list</result>
+			<result name="update" type="chain">user_list</result>
+			<result name="success">/admin/modules/users/edit.jsp</result>
+		</action>
+		
+		<!-- Tab action -->
+		<action name="tab_*" class="tabAction" method="{1}">
+			<result name="list">/admin/modules/tab/view.jsp</result>
+			<result name="delete" type="chain">tab_list</result>
+		</action>
+		
+		<!-- Tabpermission action -->
+		<action name="tabpermission_*" class="tabpermissionAction" method="{1}">
+			<result name="list">/admin/modules/tab/view.jsp</result>
+		</action>
+		
+		<!-- Role action -->
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="list">/admin/modules/role/view.jsp</result>
+			<result name="edit">/admin/modules/role/edit.jsp</result>
+			<result name="error">/admin/modules/role/view.jsp</result>
+		</action>
+		
+	</package>
+</struts>

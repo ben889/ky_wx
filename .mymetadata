@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="myframe1.0"
+  id="myeclipse.1432172115901"
+  context-root="/myframe1.0"
+  j2ee-spec="6.0"
+  archive="myframe1.0.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

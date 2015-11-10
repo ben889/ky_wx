@@ -1,0 +1,30 @@
+.pager {
+    clear: both;
+    display: block;
+    margin: 10px 0 20px 0;
+}
+
+.pager .pages {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft YaHei",Verdana;
+    font-size: 12px;
+}
+
+.pager .pages span {
+    margin: 0 0 0 -1px;
+    padding: 7px 12px;
+    line-height: 30px;
+    height: 30px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+}
+.pager .pages select {
+    width:40px;
+    height:30px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    color: #333;
+}
