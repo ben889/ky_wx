@@ -6,24 +6,135 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<script type="text/javascript" src="<%=basePath%>admin/js/jquery.min.js"></script>
-<link href="<%=basePath%>admin/css/style.css" type="text/css" rel="stylesheet" ></link>
-<link href="<%=basePath%>css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
-<script type="text/javascript">
-//子菜单收展
-	function submenutoggle(mid) {
-	    $("#SubMenu ul li ul").hide();
-	    $("#" + mid).next().show();
-	}
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<script type="text/javascript" src="<%=basePath%>admin/js/jquery.min.js"></script>
+	<script type="text/javascript" src="menu.js"></script>
+	<link href="<%=basePath%>admin/css/skin.css" type="text/css" rel="stylesheet" ></link>
+	<link href="<%=basePath%>css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
+	<script type="text/javascript">
+	//初始化菜单
+	$(function(){
+	    post_menuurl="<%=basePath%>admin/tab_getMenuJson";
+	    post_submenuurl="<%=basePath%>admin/tab_getSubMenuJson";
+		bindmenu();
+	});
+	
+	//获取一级菜单
+	<%-- function bindmenu(){
+		$.ajax({
+			url:"<%=basePath%>admin/tab_getmenuJson",
+			type:"post",
+			dataType:"json",
+			data:{},
+			success:function(data, textStatus){
+				bindmenuRows(data);
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown){
+				alert("系统异常：XMLHttpRequest="+XMLHttpRequest+" textStatus="+textStatus+" errorThrown="+errorThrown);
+			}
+		});
+	} --%>
+		
+	//获取子级菜单
+	<%-- function bindsubmenu(parentid){
+	alert(""+parentid);
+		$.ajax({
+			url:"<%=basePath%>admin/tab_getsubmenuJson",
+			type:"post",
+			dataType:"json",
+			data:{parentid:parentid},
+			success:function(data, textStatus){
+				var rowhtml = setleftmenuhtml(json,1);
+                $("#menu").append(rowhtml);
+				changeBackground(parentid);
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown){
+				alert("系统异常：XMLHttpRequest="+XMLHttpRequest+" textStatus="+textStatus+" errorThrown="+errorThrown);
+			}
+		});
+	} --%>
+	
+	//绑定一级菜单
+	/* function bindmenuRows(json) {
+            if (json.length > 0) {
+                for (var i = 0; i < json.length; i++) {
+                	if(i == 0)
+                		var rowhtml = "<li class=\"selected\" onclick=\"bindsubmenu("+json[i].id+")\" id=\""+json[i].id+"\"><span>"+json[i].name+"</span></li>";
+                	else
+                  	 	var rowhtml = "<li onclick=\"bindsubmenu("+json[i].id+")\" id=\""+json[i].id+"\"><span>"+json[i].name+"</span></li>";
+                    $("#nav").append(rowhtml);
+                }
+            }
+        }
+	
+	
+	  var lev = 0;
+       //子级菜单
+       function setleftmenuhtml(subjson, showul) {
+
+           if (subjson == undefined || subjson.length == 0)
+               return "";
+           var dtlength = subjson.length;
+           if (dtlength > 0) {
+               lev++;
+
+               var display = "";
+               if (showul == 1)
+                   display = "style=\"display:block;\"";
+              	subresulthtml += "<ul " + display + ">";
+               var clickfun = "";
+               for (var i = 0; i < dtlength; i++) {
+                   if (lev == 1) {
+                       clickfun = "submenutoggle('" + subjson[i].id + "');";
+                   }
+                   var subj = subjson[i].submenu;
+                   subresulthtml += "<li><a href=\"" + subjson[i].url + "\" id=\"" + subjson[i].id + "\" target=\"mainframe\" onclick=\"" + clickfun + "\">" + subjson[i].name + "</a>";
+                   var isshow = 0;
+                   if (lev == 2 && i == 0) {
+                       isshow = 1;
+                   }
+                   setleftmenuhtml(subj, isshow);
+                   subresulthtml += "</li>";
+               }
+               subresulthtml += "</ul>";
+               lev--;
+           }
+           return subresulthtml;
+       } */
+	
+	
+	//点击切换背样式
+	/* function changeBackground(parentid){
+		$("#nav li").removeClass("selected");
+        $("#" + parentid).parent().addClass("selected");
+	} */
+	</script>
 </head>
 <body class="indexbody">
-	<div class="header">
+<div class="header">
+        <h1 class="logo">
+            <span class="fa fa-comments-o" style="font-size:24px;"></span> &nbsp;&nbsp;
+            </h1>
+            <div class="nav">
+                <div id="menu">
+                </div>
+            </div>
+
+
+            
+            <div class="nav-right">
+                <div class="icon-info">
+                    <span><font class="fa fa-meh-o" style="font-size:18px;"></font>&nbsp;&nbsp;您好，【】&nbsp;&nbsp;<a href="javascript:;" onclick="return confirm('确定退出吗？');" style="color:#ffffff;">退出</a></span>
+                </div>
+            </div>
+        </div>
+        
+	<!-- <div class="header">
         <div class="header-box">
             <h1 class="logo"><span class="fa fa-comments-o" style="font-size:24px;"></span> &nbsp;&nbsp;商家中心</h1>
-            <ul id="nav" class="nav menu">
+            <ul id="nav" class="nav menu vvv">
+                
                 <li class="selected"><span>商品</span></li>
                 <li><span>会员</span></li>
                 <li><span>订单</span></li>
@@ -36,16 +147,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!--左部菜单-->
     <div class="main-sidebar">
         <div id="sidebar-nav" class="sidebar-nav" tabindex="5000" style="overflow: hidden; outline: none;">
             <div class="list-box">
-                <div class="list-group" name="商家" style="display: block;">
-                    <h2><a href="javascript:void(0);" onclick="member()">商家管理</a><i></i></h2>
-                    <ul style="display: block;" >
-                        <li><a navid="user_manage" class="item pack">
+                <div class="list-group" style="display: block;">
+                    <h2><a href="javascript:void(0);">商家管理</a><i></i></h2>
+                    <ul style="display: block;" id="submenu">
+                        <%-- <li><a navid="user_manage" class="item pack">
                             <div class="arrow"></div>
                             <div class="expandable open"></div>
                             <div class="folder close"></div>
@@ -60,10 +171,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                    	</a>
                                </li>
                             </ul>
-                        </li>
+                        </li> --%>
                     </ul>
-                    <ul style="display: block;" id="list">
-                    </ul>
+                    	
                 </div>
             </div>
         </div>
