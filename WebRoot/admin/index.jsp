@@ -6,71 +6,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<script type="text/javascript" src="<%=basePath%>admin/js/jquery.min.js"></script>
-<link href="<%=basePath%>admin/css/style.css" type="text/css" rel="stylesheet" ></link>
-<link href="<%=basePath%>css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
-<script type="text/javascript">
-//子菜单收展
-	function submenutoggle(mid) {
-	    $("#SubMenu ul li ul").hide();
-	    $("#" + mid).next().show();
-	}
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<script type="text/javascript" src="<%=basePath%>admin/js/jquery.min.js"></script>
+	<script type="text/javascript" src="menu.js"></script>
+	<link href="<%=basePath%>admin/css/skin.css" type="text/css" rel="stylesheet" ></link>
+	<link href="<%=basePath%>css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"></link>
+	<script type="text/javascript">
+	//初始化菜单
+	$(function(){
+	    post_menuurl="<%=basePath%>admin/tab_getMenuJson";
+	    post_submenuurl="<%=basePath%>admin/tab_getSubMenuJson";
+		bindmenu();
+	});
+	
+
+	</script>
 </head>
 <body class="indexbody">
-	<div class="header">
-        <div class="header-box">
-            <h1 class="logo"><span class="fa fa-comments-o" style="font-size:24px;"></span> &nbsp;&nbsp;商家中心</h1>
-            <ul id="nav" class="nav menu">
-                <li class="selected"><span>商品</span></li>
-                <li><span>会员</span></li>
-                <li><span>订单</span></li>
-                <li><span>界面</span></li>
-                <li><span>控制面板</span></li>
-            </ul>
+<div class="header">
+        <h1 class="logo">
+            <span class="fa fa-comments-o" style="font-size:24px;"></span> &nbsp;&nbsp;
+            </h1>
+            <div class="nav">
+                <div id="menu">
+                </div>
+            </div>
+
+
+            
             <div class="nav-right">
                 <div class="icon-info">
-                    <span><font class="fa fa-meh-o" style="font-size:18px;"></font>&nbsp;&nbsp;您好，<a href="javascript:;" onclick="return confirm('确定退出吗？');" style="color:#ffffff;">退出</a></span>
+                    <span><font class="fa fa-meh-o" style="font-size:18px;"></font>&nbsp;&nbsp;您好，【】&nbsp;&nbsp;<a href="javascript:;" onclick="return confirm('确定退出吗？');" style="color:#ffffff;">退出</a></span>
                 </div>
             </div>
         </div>
-    </div>
 
     <!--左部菜单-->
     <div class="main-sidebar">
-        <div id="sidebar-nav" class="sidebar-nav" tabindex="5000" style="overflow: hidden; outline: none;">
-            <div class="list-box">
-                <div class="list-group" name="商家" style="display: block;">
-                    <h2><a href="javascript:void(0);" onclick="member()">商家管理</a><i></i></h2>
-                    <ul style="display: block;" >
-                        <li><a navid="user_manage" class="item pack">
-                            <div class="arrow"></div>
-                            <div class="expandable open"></div>
-                            <div class="folder close"></div>
-                            <span>用户管理</span> </a>
-                            <ul style="display: block;">
-                                <li>
-                                	<a navid="user_list" href="<%=basePath%>admin/user_list" target="mainframe" class="item">
-	                                    <div class="arrow"></div>
-	                                    <div class="expandable"></div>
-	                                    <div class="folder open"></div>
-	                                    <span>用户信息</span>
-                                   	</a>
-                               </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul style="display: block;" id="list">
-                    </ul>
-                </div>
-            </div>
+        <div style="height: 0px;">
+        </div>
+        <div id="submenu-top">
+        </div>
+        <div id="submenu">
+            <%--<ul>
+                <li><a href="DesktopModules/Product/productlist.aspx" id="11" target="mainframe">产品</a><ul>
+                    <li><a href="DesktopModules/Product/productlist.aspx" id="111" target="mainframe">产品</a></li>
+                    <li><a href="DesktopModules/Product/producttype.aspx" id="112" target="mainframe">产品分类</a></li>
+                </ul>
+                </li>
+                <li><a href="DesktopModules/Order/order.aspx" id="12" target="main">订单</a></li>
+            </ul>--%>
         </div>
     </div>
     <!--内容-->
     <div class="main-container">
-        <iframe id="mainframe" name="mainframe" frameborder="0" src="main.aspx"></iframe>
+        <iframe id="mainframe" name="mainframe" allowtransparency="true" src="" border="0"
+            frameborder="0" framespacing="0" marginheight="0" marginwidth="0" style="width: 100%; height: 100%; position: absolute;"></iframe>
     </div>
 </body>
 </html>

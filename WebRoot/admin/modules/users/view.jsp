@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- base style -->
 <link rel="stylesheet" href="<%=basePath%>admin/css/style.css" type="text/css"></link>
 <script type="text/javascript" src="<%=basePath%>admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>admin/js/common.js"></script>
 <!-- /base style -->
 
 <!-- 分页插件 -->
@@ -85,16 +86,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<s:date name="#user.lasttime" format="yyyy-MM-dd HH:mm:ss" />
 						</td>
 						<td>
-						<a href="user_bind?userid=<s:property value="#user.userid" />">修改</a>
+						<a href="<%=basePath%>admin/user_bind?userid=<s:property value="#user.userid" />">修改</a>
 							| 
 						<s:if test="#user.locked == 0">
-							<a href="user_update?locked=on&userid=<s:property value="#user.userid" />">未锁定</a>
+							<a href="<%=basePath%>admin/user_update?locked=on&userid=<s:property value="#user.userid" />">未锁定</a>
 						</s:if>
 						<s:else>
-							<a href="user_update?locked=off&userid=<s:property value="#user.userid" />" style="color:red;">已锁定</a>
+							<a href="<%=basePath%>admin/user_update?locked=off&userid=<s:property value="#user.userid" />" style="color:red;">已锁定</a>
 						</s:else>
 						   |  
-						<a href="user_delete?userid=<s:property value="#user.userid" />" onclick="return confirm('确定删除吗？');">删除</a>
+						<a href="<%=basePath%>admin/user_delete?userid=<s:property value="#user.userid" />" onclick="return confirm('确定删除吗？');">删除</a>
 						</td>
 					</tr>
 				</s:iterator>

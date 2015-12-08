@@ -125,51 +125,45 @@ public class UserAction extends BaseAction<Users> {
 	/**
 	 * 删除
 	 */
-	public String delete() throws IOException {
-		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
-		response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().write("<script>function fails(info){alert(info);}</script>");
-		response.getWriter().write("<script>function success(info){if (info!='') alert(info);location.href='"+basePath+"admin/user_list';}</script>");
+	public void delete() throws IOException {
 		try {
 			userid = request.getParameter("userid") != null ? Integer.parseInt(request.getParameter("userid").trim()) : 0;
 			if (userid > 0) {
 				service.delete(userid); // 删除
-				response.getWriter().write("<script>fails('删除成功');location.href='"+basePath+"admin/user_list';</script>");
-				return null;
+				response.getWriter().write("<script>alert('删除成功');location.href='admin/user_list';</script>");
+				return;
 			}
 		} catch (Exception e) {
-			response.getWriter().write("<script>fails('删除失败');location.href='"+basePath+"admin/user_list';</script>");
-			return null;
+			response.getWriter().write("<script>alert('删除失败');location.href='admin/user_list';</script>");
+			return;
 		} finally {
 			response.getWriter().close();
 		}
-		return null;
 	}
 
 	/**
 	 * 更新
 	 */
-	public String update() throws IOException {
-		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+	public void update() throws IOException {
 		try {
 			userid = request.getParameter("userid") != null ? Integer.parseInt(request.getParameter("userid").trim()) : 0;
 			String locked = request.getParameter("locked") != null ? request.getParameter("locked").toString() : "off";
 			Users user = service.find(userid);
 			if(user == null){
-				response.getWriter().write("<script>alert('操作失败，ID有误');location.href='"+basePath+"admin/user_list';</script>");
-				return null;
+				response.getWriter().write("<script>alert('操作失败，ID有误');location.href='admin/user_list';</script>");
+				return;
 			}
 			boolean isLocked = "on".equals(locked) ? true : false;
 			user.setLocked(isLocked);
 			user.setLasttime(new Date());
 			service.update(user); //更新
+			response.getWriter().write("<script>alert('更新成功');location.href='admin/user_list';</script>");
 		} catch (Exception e) {
-			response.getWriter().write("<script>alert('操作失败');location.href='"+basePath+"admin/user_list';</script>");
-			return null;
+			response.getWriter().write("<script>alert('更新失败');location.href='admin/user_list';</script>");
+			return;
 		}finally{
 			response.getWriter().close();
 		}
-		return "update";
 	}
 	
 	/** ---------------------- get set ------------------------- **/

@@ -19,6 +19,7 @@
 		<action name="user_save" class="userAction"  >
 			<result name="success">/index.jsp</result>
 		</action>
-		
+		<action name="authimage" class="AuthImageAction"  >
+		</action>
 	</package>
 </struts>

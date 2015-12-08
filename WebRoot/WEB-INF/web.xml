@@ -47,14 +47,11 @@
 			<param-value>true</param-value>
 		</init-param>
 
-
-
 		<init-param>
 			<param-name>flushMode</param-name>
 			<param-value>AUTO</param-value>
 		</init-param>
 	</filter>
-
 
 	<filter-mapping>
 		<filter-name>hibernateFilter</filter-name>
@@ -71,6 +68,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<servlet>
+	    <servlet-name>AuthImage</servlet-name>
+	    <servlet-class>com.framework.utils.verifycode.AuthImage</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+	    <servlet-name>AuthImage</servlet-name>
+	    <url-pattern>/authImage</url-pattern>
+  	</servlet-mapping>
 
 	<!-- Tomcat 配置 -->
 	<!-- 欢迎页 -->
