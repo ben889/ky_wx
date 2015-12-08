@@ -84,7 +84,11 @@ public class TabAction extends CommonAction<Tabs> {
 		try {
 			int parentid = 0;
 			parentid = request.getParameter("parentid") != null ? Integer .parseInt(request.getParameter("parentid").trim()) : 0;
+<<<<<<< HEAD
 			sb1 = new StringBuilder();
+=======
+			sb = new StringBuilder();
+>>>>>>> origin/master
 			String result = getListMenu(parentid);
 			response.getWriter().write(result);
 		} catch (Exception e) {
@@ -94,10 +98,17 @@ public class TabAction extends CommonAction<Tabs> {
 		}
 	}
 
+<<<<<<< HEAD
 	StringBuilder sb1;
 	/**递归子级菜单 **/
 	private String getListMenu(int parentid) {
 		StringBuilder sb = new StringBuilder();
+=======
+	StringBuilder sb;
+	/**递归子级菜单 **/
+	private String getListMenu(int parentid) {
+		
+>>>>>>> origin/master
 		sb.append("[");
 		if (parentid > 0) {
 			Map<String, String> orderby = new HashMap<String, String>(); // 排序
