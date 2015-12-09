@@ -39,19 +39,19 @@ public class LoginFilter extends Filter {
 		user = (Users) request.getSession().getAttribute("user");
 		
 		//设置过滤
-		if (user != null 
-				|| url.endsWith("login.jsp") 
-				|| url.endsWith(".css")
-				|| url.endsWith(".js") 
-				|| url.endsWith(".gif")
-				|| url.endsWith(".png") 
-				|| url.endsWith(".jpg")) {
-			chain.doFilter(new MyRequest(request), response); // 放行
-		} else {
-			String locationURL = request.getContextPath() + "/admin/login.jsp";
-			PrintWriter out = response.getWriter();
-			out.print("<script language>alert('请先登录好么？');top.location.href='" + locationURL + "'</script>");
-		}
+//		if (user != null 
+//				|| url.endsWith("login.jsp") 
+//				|| url.endsWith(".css")
+//				|| url.endsWith(".js") 
+//				|| url.endsWith(".gif")
+//				|| url.endsWith(".png") 
+//				|| url.endsWith(".jpg")) {
+//			chain.doFilter(new MyRequest(request), response); // 放行
+//		} else {
+//			String locationURL = request.getContextPath() + "/admin/login.jsp";
+//			PrintWriter out = response.getWriter();
+//			out.print("<script language>alert('请先登录好么？');top.location.href='" + locationURL + "'</script>");
+//		}
 	}
 
 	@Override
