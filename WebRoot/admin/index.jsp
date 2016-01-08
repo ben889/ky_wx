@@ -33,8 +33,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
 
-
-            
             <div class="nav-right">
                 <div class="icon-info">
                     <span><font class="fa fa-meh-o" style="font-size:18px;"></font>&nbsp;&nbsp;您好，【】&nbsp;&nbsp;<a href="javascript:;" onclick="return confirm('确定退出吗？');" style="color:#ffffff;">退出</a></span>

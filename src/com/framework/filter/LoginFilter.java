@@ -35,8 +35,8 @@ public class LoginFilter extends Filter {
 		System.out.println("=============doFilter=============\nurl:" + url); // test
 		
 		// 在session中提取user
-		Users user = null;
-		user = (Users) request.getSession().getAttribute("user");
+//		Users user = null;
+//		user = (Users) request.getSession().getAttribute("user");
 		
 		//设置过滤
 //		if (user != null 
@@ -59,31 +59,31 @@ public class LoginFilter extends Filter {
 		System.out.println("=============doInit=============");
 	}
 
-	class MyRequest extends HttpServletRequestWrapper {
-		private HttpServletRequest request;
-
-		public MyRequest(HttpServletRequest request) {
-			super(request);
-			this.request = request;
-		}
-
-		@Override
-		public String getParameter(String name) {
-
-			String value = this.request.getParameter(name);
-			if (value == null) {
-				return null;
-			}
-			if (!this.request.getMethod().equalsIgnoreCase("get")) {
-				return value;
-			}
-			try {
-				value = new String(value.getBytes("iso8859-1"), "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				throw new RuntimeException(e);
-			}
-			return value;
-		}
-	}
+//	class MyRequest extends HttpServletRequestWrapper {
+//		private HttpServletRequest request;
+//
+//		public MyRequest(HttpServletRequest request) {
+//			super(request);
+//			this.request = request;
+//		}
+//
+//		@Override
+//		public String getParameter(String name) {
+//
+//			String value = this.request.getParameter(name);
+//			if (value == null) {
+//				return null;
+//			}
+//			if (!this.request.getMethod().equalsIgnoreCase("get")) {
+//				return value;
+//			}
+//			try {
+//				value = new String(value.getBytes("iso8859-1"), "UTF-8");
+//			} catch (UnsupportedEncodingException e) {
+//				throw new RuntimeException(e);
+//			}
+//			return value;
+//		}
+//	}
 
 }

@@ -5,14 +5,14 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 	<!-- 登录过滤 -->
-	<filter>
+	<!-- <filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>com.framework.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 
 
 	<!-- 对spring容器进行实例化 -->
@@ -68,14 +68,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<servlet>
-	    <servlet-name>AuthImage</servlet-name>
-	    <servlet-class>com.framework.utils.verifycode.AuthImage</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-	    <servlet-name>AuthImage</servlet-name>
-	    <url-pattern>/authImage</url-pattern>
-  	</servlet-mapping>
+
 
 	<!-- Tomcat 配置 -->
 	<!-- 欢迎页 -->

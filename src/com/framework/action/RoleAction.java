@@ -89,9 +89,9 @@ public class RoleAction extends BaseAction<Roles> {
 		try{
 			roleid = request.getParameter("roleid") != null ? Integer.parseInt(request.getParameter("roleid").trim()) : 0;
 			roleService.delete(roleid);
-			resultMsg = "<script>parent.success(\"删除成功\");parent.back('role_list');</script>";
+			resultMsg = "<script>alert(\"删除成功\");location.href='admin/role_list';</script>";
 		}catch(Exception e){
-			resultMsg = "<script>parent.fail(\"删除失败!\");</script>";
+			resultMsg = "<script>alert(\"删除失败!\");</script>";
 		}finally{
 			response.getWriter().write(resultMsg);
 			response.getWriter().close();

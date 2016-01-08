@@ -5,8 +5,8 @@ function tabs() {
 	        $div_li.removeClass("selected");
 	        $(this).addClass("selected");
 	        var div_index = $div_li.index(this);
-	        $("#tab_box>div").hide();
-	        $("#tab_box>div").eq(div_index).show();
+	        $("#tab_box div").hide();
+	        $("#tab_box div").eq(div_index).show();
 	    });
 }
 

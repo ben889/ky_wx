@@ -24,7 +24,7 @@ function bindmenu() {
 function bindsubmenu(mid) {
     
     subresulthtml = "";
-    var ajaxdata = {parentid: mid };
+    var ajaxdata = {pid: mid };
     $.ajax({
         type: "POST",
         url: post_submenuurl,

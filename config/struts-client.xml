@@ -2,25 +2,23 @@
 <!DOCTYPE struts PUBLIC
         "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
         "http://struts.apache.org/dtds/struts-2.3.dtd">
-        
-<struts>
-	<package name="client" namespace="/client" extends="struts-default">
-		<!-- 定义新的拦截器栈, 配置 prepare 拦截器栈的 alwaysInvokePrepare 参数值为 false -->
-		<!-- <interceptors>
-			<interceptor-stack name="sshStack">
-				<interceptor-ref name="paramsPrepareParamsStack">
-					<param name="prepare.alwaysInvokePrepare">false</param>
-				</interceptor-ref>
-			</interceptor-stack>
-		</interceptors>
 
-		使用新的拦截器栈
-		<default-interceptor-ref name="sshStack"></default-interceptor-ref> -->
-		<action name="user_save" class="userAction"  >
+<struts>
+	<package name="client" namespace="/" extends="struts-default">
+		<!-- 定义新的拦截器栈, 配置 prepare 拦截器栈的 alwaysInvokePrepare 参数值为 false -->
+		<!-- <interceptors> <interceptor-stack name="sshStack"> <interceptor-ref 
+			name="paramsPrepareParamsStack"> <param name="prepare.alwaysInvokePrepare">false</param> 
+			</interceptor-ref> </interceptor-stack> </interceptors> 使用新的拦截器栈 <default-interceptor-ref 
+			name="sshStack"></default-interceptor-ref> -->
+		<action name="user_save" class="userAction">
 			<result name="success">/index.jsp</result>
 		</action>
-		<action name="authimage" class="AuthImageAction"  >
-			<result name="success">/index.jsp</result>
+		<action name="SecurityCodeImageAction" class="securityCodeImageAction">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">2048</param>
+			</result>
 		</action>
 	</package>
 </struts>

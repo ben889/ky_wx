@@ -7,31 +7,33 @@
 	<package name="admin" namespace="/admin" extends="struts-default">
 		<!-- users actions -->
 		<action name="user_*" class="userAction" method="{1}">
-			<result name="list">/admin/modules/users/view.jsp</result>
-			<result name="error">/admin/modules/users/view.jsp</result>
-			<result name="bind">/admin/modules/users/edit.jsp</result>
+			<result name="list">/admin/users/view.jsp</result>
+			<result name="error">/admin/users/view.jsp</result>
+			<result name="bind" >/admin/users/edit.jsp</result>
 			<result name="delete" type="chain">user_list</result>
 			<result name="update" type="chain">user_list</result>
-			<result name="success">/admin/modules/users/edit.jsp</result>
+			<result name="success">/admin/users/edit.jsp</result>
 		</action>
 		
 		<!-- Tab action -->
 		<action name="tab_*" class="tabAction" method="{1}">
-			<result name="list">/admin/modules/tab/view.jsp</result>
+			<result name="list">/admin/tab/view.jsp</result>
 			<result name="delete" type="chain">tab_list</result>
 		</action>
 		
 		<!-- Tabpermission action -->
 		<action name="tabpermission_*" class="tabpermissionAction" method="{1}">
-			<result name="list">/admin/modules/tab/view.jsp</result>
+			<result name="list">/admin/tab/view.jsp</result>
 		</action>
 		
 		<!-- Role action -->
 		<action name="role_*" class="roleAction" method="{1}">
-			<result name="list">/admin/modules/role/view.jsp</result>
-			<result name="edit">/admin/modules/role/edit.jsp</result>
-			<result name="error">/admin/modules/role/view.jsp</result>
+			<result name="list">/admin/role/view.jsp</result>
+			<result name="edit">/admin/role/edit.jsp</result>
+			<result name="error">/admin/role/view.jsp</result>
 		</action>
-		
+		<!-- <action name="authimage" class="AuthImageAction"  >
+			<result name="success">/index.jsp</result>
+		</action> -->
 	</package>
 </struts>

@@ -65,10 +65,14 @@ public class TabAction extends CommonAction<Tabs> {
 							+ t.getTabid() + "\",\"name\":\"" + t.getTabname()
 							+ "\",\"submenu\":[]},");
 				}
-				if (sb.toString().endsWith(",")) {
-					sb.deleteCharAt(sb.length() - 1);
-				}
 			}
+			sb.append("{\"url\":\"\",\"id\":\"admin\",\"name\":\"admin\",\"submenu\":[]},");
+			sb.append("{\"url\":\"\",\"id\":\"host\",\"name\":\"host\",\"submenu\":[]},");
+			
+			if (sb.toString().endsWith(",")) {
+				sb.deleteCharAt(sb.length() - 1);
+			}
+			
 			sb.append("]");
 			response.getWriter().write(sb.toString());
 		} catch (Exception e) {
@@ -82,10 +86,51 @@ public class TabAction extends CommonAction<Tabs> {
 	/** 获取子级菜单 **/
 	public void getSubMenuJson()throws Exception  {
 		try {
-			int parentid = 0;
-			parentid = request.getParameter("parentid") != null ? Integer .parseInt(request.getParameter("parentid").trim()) : 0;
+			String result ="[]";
 			sb1 = new StringBuilder();
-			String result = getListMenu(parentid);
+			int pid = 0;
+			String parentidstr = request.getParameter("pid");
+			if (parentidstr.toLowerCase().equals("host"))
+			{
+					sb1.append("[{");
+					sb1.append("\"id\":\"datainit\",");
+					sb1.append("\"name\":\"刷新基础数据\",");
+					sb1.append("\"url\":\"console/datainit.jsp\",");
+					sb1.append("\"submenu\":[]");
+					sb1.append("},");
+					sb1.append("{");
+					sb1.append("\"id\":\"execsql\",");
+					sb1.append("\"name\":\"执行脚本\",");
+					sb1.append("\"url\":\"SQL/execSQL.jsp\",");
+					sb1.append("\"submenu\":[]");
+					sb1.append("}]");
+					
+					result =sb1.toString();
+
+			}
+			else if (parentidstr.toLowerCase().equals("admin"))
+			{
+				sb1.append("[{");
+				sb1.append("\"id\":\"users\",");
+				sb1.append("\"name\":\"帐号\",");
+				sb1.append("\"url\":\"user_list\",");
+				sb1.append("\"submenu\":[]");
+				sb1.append("},");
+				sb1.append("{");
+				sb1.append("\"id\":\"roles\",");
+				sb1.append("\"name\":\"角色\",");
+				sb1.append("\"url\":\"role/role_list\",");
+				sb1.append("\"submenu\":[]");
+				sb1.append("}]");
+				result =sb1.toString();
+			}
+			else
+			{
+				pid = Integer.parseInt(parentidstr);
+				result = getListMenu(pid);
+			}
+			
+			
 			response.getWriter().write(result);
 		} catch (Exception e) {
 			response.getWriter().write("[]");
@@ -97,28 +142,35 @@ public class TabAction extends CommonAction<Tabs> {
 	StringBuilder sb1;
 	/**递归子级菜单 **/
 	private String getListMenu(int parentid) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
-		if (parentid > 0) {
-			Map<String, String> orderby = new HashMap<String, String>(); // 排序
-			orderby.put("o.orderby", "asc");
-			List<Tabs> list = tabService.find(0, -1, " and parentid=?", new Object[] { parentid }, orderby);
-			if (list != null && list.size() > 0) {
-				for (Tabs info : list) {
-					sb.append("{");
-					sb.append("\"id\":\"" + info.getTabid() + "\",");
-					sb.append("\"name\":\"" + info.getTabname() + "\",");
-					sb.append("\"url\":\"" + info.getTaburl() + "\",");
-					sb.append("\"submenu\":" + getListMenu(info.getTabid()));
-					sb.append("},");
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			if (parentid > 0) {
+				Map<String, String> orderby = new HashMap<String, String>(); // 排序
+				orderby.put("o.orderby", "asc");
+				List<Tabs> list = tabService.find(0, -1, " and parentid=?", new Object[] { parentid }, orderby);
+				if (list != null && list.size() > 0) {
+					for (Tabs info : list) {
+						sb.append("{");
+						sb.append("\"id\":\"" + info.getTabid() + "\",");
+						sb.append("\"name\":\"" + info.getTabname() + "\",");
+						sb.append("\"url\":\"" + info.getTaburl() + "\",");
+						sb.append("\"submenu\":" + getListMenu(info.getTabid()));
+						sb.append("},");
+					}
 				}
 			}
+			
+			
+			if (sb.toString().endsWith(",")) {
+				sb.deleteCharAt(sb.length() - 1);
+			}
+			sb.append("]");
+			return sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		if (sb.toString().endsWith(",")) {
-			sb.deleteCharAt(sb.length() - 1);
-		}
-		sb.append("]");
-		return sb.toString();
+		return "[]";
 	}
 
 	// 保存
