@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -35,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             <div class="nav-right">
                 <div class="icon-info">
-                    <span><font class="fa fa-meh-o" style="font-size:18px;"></font>&nbsp;&nbsp;您好，【】&nbsp;&nbsp;<a href="javascript:;" onclick="return confirm('确定退出吗？');" style="color:#ffffff;">退出</a></span>
+                    <span><font class="fa fa-meh-o" style="font-size:18px;"></font>&nbsp;&nbsp;您好，【<s:property value="#user.username"/>】&nbsp;&nbsp;<a href="javascript:;" onclick="return confirm('确定退出吗？');" style="color:#ffffff;">退出</a></span>
                 </div>
             </div>
         </div>

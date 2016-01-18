@@ -10,8 +10,7 @@
 			name="paramsPrepareParamsStack"> <param name="prepare.alwaysInvokePrepare">false</param> 
 			</interceptor-ref> </interceptor-stack> </interceptors> 使用新的拦截器栈 <default-interceptor-ref 
 			name="sshStack"></default-interceptor-ref> -->
-		<action name="user_save" class="userAction">
-			<result name="success">/index.jsp</result>
+		<action name="user_*" class="userAction" method="{1}">
 		</action>
 		<action name="verifycode" class="securityCodeImageAction">
 			<result name="success" type="stream">

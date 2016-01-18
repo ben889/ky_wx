@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class UserAction extends BaseAction<Users> {
 
 	private Users user;
 	private int userid;
+	private HttpSession session;
 
 	@Override
 	public String execute() throws Exception {
@@ -193,6 +195,7 @@ public class UserAction extends BaseAction<Users> {
 
 	public void login() throws IOException {
 		try {
+			session = request.getSession();
 			String username = CommFun.ObjectToStr(request
 					.getParameter("username"));
 			String password = CommFun.ObjectToStr(request
@@ -211,8 +214,18 @@ public class UserAction extends BaseAction<Users> {
 				response.getWriter().write("请输入验证码");
 				return;
 			}
+			String session_chedkcode = session.getAttribute("veritycode").toString();
+			if (session_chedkcode == null) {
+				response.getWriter().write("验证码已过期");
+				return;
+			}
+			if (!session_chedkcode.trim().toLowerCase().equals(checkcode.trim())) {
+				response.getWriter().write("验证码错误");
+				return;
+			}
 			List<Users> getlist = service.find(0, 1,
-					"username=? and password=?", new Object[] { username, password }, null);
+					"username=? and password=?", new String[] { username,
+							password }, null);
 			if (getlist == null || getlist.size() == 0) {
 				response.getWriter().write("帐号/密码错误");
 				return;
@@ -230,6 +243,7 @@ public class UserAction extends BaseAction<Users> {
 				response.getWriter().write("帐号已被删除");
 				return;
 			}
+			session.setAttribute("user", user);
 			response.getWriter().write("1");
 		} catch (Exception e) {
 			response.getWriter().write(e.getMessage());
@@ -264,4 +278,7 @@ public class UserAction extends BaseAction<Users> {
 		this.service = service;
 	}
 
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
 }

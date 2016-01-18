@@ -62,10 +62,10 @@ public class MyVerifyCode {
 		return verifyCode.toString();
 	}
 
-	public ByteArrayInputStream getVerifyCodeImage() {
+	public ByteArrayInputStream getVerifyCodeImage(String code) {
 		// 生成图片
 		int w = 100, h = 40;
-		String code = generateVerifyCode(4);
+		//String code = generateVerifyCode(4);
 		return getVerifyCodeImage(w, h, code);
 	}
 

@@ -3,21 +3,36 @@ package com.framework.action.verifycode;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.springframework.stereotype.Controller;
 
 import com.framework.utils.verifycode.MyVerifyCode;
 import com.framework.utils.verifycode.SecurityCode;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("securityCodeImageAction")
-public class SecurityCodeImageAction extends ActionSupport {
+public class SecurityCodeImageAction extends ActionSupport implements ServletRequestAware, ServletResponseAware {
 
 	private static final long serialVersionUID = 1496691731440581303L;
 	// 图片流
 	private ByteArrayInputStream imageStream;
+	protected HttpServletRequest request;
+	@Override
+	public void setServletRequest(HttpServletRequest req) {
+		this.request = req;
+	}
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+	}
 	// session域
-	private Map<String, Object> session;
+	protected HttpSession session;
 
 	public ByteArrayInputStream getImageStream() {
 		return imageStream;
@@ -27,7 +42,7 @@ public class SecurityCodeImageAction extends ActionSupport {
 		this.imageStream = imageStream;
 	}
 
-	public void setSession(Map<String, Object> session) {
+	public void setSession(HttpSession session) {
 		this.session = session;
 	}
 
@@ -40,19 +55,23 @@ public class SecurityCodeImageAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		session = ActionContext.getContext().getSession();
+		session = request.getSession();
 		// 如果开启Hard模式，可以不区分大小写
 		// String securityCode =
 		// SecurityCode.getSecurityCode(4,SecurityCodeLevel.Hard,
 		// false).toLowerCase();
 
+		new MyVerifyCode();
 		// 获取默认难度和长度的验证码
 		//String securityCode = SecurityCode.getSecurityCode();
 		//imageStream = SecurityCode.getImageAsInputStream(securityCode);
-		imageStream = new MyVerifyCode().getVerifyCodeImage();
+		String code = MyVerifyCode.generateVerifyCode(4);
+		imageStream = new MyVerifyCode().getVerifyCodeImage(code);
 		// 放入session中
-		//session.put("securityCode", securityCode);
+		session.setAttribute("veritycode", code);
 		return SUCCESS;
 	}
+
+	
 
 }

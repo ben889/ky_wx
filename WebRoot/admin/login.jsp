@@ -79,7 +79,7 @@
             var ajaxdata = {username: usernameval, password: passwordval, checkcode: checkcodeval, isCookies: iscookie };
             $.ajax({
                 type: "POST",
-                url: '<%=path%>/admin/user_login',
+                url: '<%=path%>/user_login',
                 data: ajaxdata,
                 dataType: "text",
                 beforeSend: function () {
