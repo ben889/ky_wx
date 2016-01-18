@@ -3,7 +3,6 @@ package com.framework.domain;
 import java.sql.Timestamp;
 import java.util.Date;
 
-
 public class Users implements java.io.Serializable {
 
 	// Fields
@@ -11,15 +10,15 @@ public class Users implements java.io.Serializable {
 	private Integer userid;
 	private String username;
 	private String password;
-	private String displayname;
-	private String email;
-	private Integer status;
-	private Integer usertype;
-	private Boolean deleted;
-	private Boolean locked;
-	private Integer createuserid;
+	private String displayname = "";
+	private String email = "";
+	private Integer status = 0;
+	private Integer usertype = 3;
+	private Boolean deleted = false;
+	private Boolean locked = false;
+	private Integer createuserid = 0;
 	private Date createtime;
-	private String description;
+	private String description = "";
 	private Date lasttime;
 
 	// Constructors
@@ -52,8 +51,7 @@ public class Users implements java.io.Serializable {
 		this.description = description;
 		this.lasttime = lasttime;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Users [userid=" + userid + ", username=" + username
@@ -64,7 +62,7 @@ public class Users implements java.io.Serializable {
 				+ createtime + ", description=" + description + ", lasttime="
 				+ lasttime + "]";
 	}
-	
+
 	// Property accessors
 
 	public Integer getUserid() {

@@ -9,7 +9,7 @@ img, input, select { vertical-align: middle; }
 .login-box-left { float: left; width: 490px; height: 270px; overflow: hidden; }
 .login-box-right { float: right; width: 250px; height: 230px; background-color: #FFF; padding: 20px 20px; overflow: hidden; }
 .loginform ul li { margin: 0 0 5px 0; list-style-type: none; padding: 5px 0 0 0; text-align: left; height: 35px; width: 100%; display: block; }
-.texbox { height: 30px; border: 1px solid #CCC; background-color: #FFF; line-height: 30px; font-size: 16px; color: #333;            /*text-indent: 10px;*/ border-radius: 2px; }
+.texbox { height: 30px; border: 1px solid #CCC; background-color: #FFF; line-height: 30px; font-size: 16px; color: #333;            /*text-indent: 10px;*/ border-radius: 0px; }
 .loginbutton { background-image: url(../images/lg_btn.png); width: 140px; height: 40px; background-color: transparent; font-size: 18px; color: #FFF; font-family: "微软雅黑"; border: none; }
 .input_w { background: none repeat scroll 0 0 #FFFFFF; height: 40px; position: relative; }
 .input_w input { background: none repeat scroll 0 0 transparent; }

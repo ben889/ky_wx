@@ -53,7 +53,7 @@ public class TabAction extends CommonAction<Tabs> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		try {
-			String condition = " and o.parentid=?"; // 条件
+			String condition = "o.parentid=?"; // 条件
 			Object[] params = { 0 }; // 参数
 			Map<String, String> orderby = new HashMap<String, String>(); // 排序
 			orderby.put("o.orderby", "asc");

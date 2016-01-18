@@ -12,13 +12,14 @@ import org.springframework.stereotype.Controller;
 
 import com.framework.domain.Users;
 import com.framework.service.IUserService;
+import com.framework.utils.CommFun;
 import com.framework.utils.pagination.PageInfo;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
  * 用户Action
  */
-//@Scope("prototype")
+// @Scope("prototype")
 @Controller("userAction")
 public class UserAction extends BaseAction<Users> {
 	private static final long serialVersionUID = 1L;
@@ -91,7 +92,7 @@ public class UserAction extends BaseAction<Users> {
 	public String save() throws IOException {
 		String password2 = request.getParameter("pass2");
 		try {
-			
+
 			if (password2 == null || password2.trim().length() == 0) {
 				response.getWriter().write(
 						"<script>parent.fail('请确认密码');</script>");
@@ -104,7 +105,7 @@ public class UserAction extends BaseAction<Users> {
 				this.addActionError("密码不一至");
 				return "success";
 			}
-			
+
 			String locked = request.getParameter("locked"); // 是否锁定
 			if (locked == null || locked.equals("off")) {
 				user.setLocked(false);
@@ -116,7 +117,7 @@ public class UserAction extends BaseAction<Users> {
 				user.setLasttime(new Date()); // 最后操作时间
 				service.update(user); // 更新
 			} else {
-				
+
 				user.setCreatetime(new Date()); // 创建时间
 				user.setLasttime(new Date()); // 最后操作时间
 				service.save(user); // 添加
@@ -184,6 +185,54 @@ public class UserAction extends BaseAction<Users> {
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script>alert('更新失败');location.href='admin/user_list';</script>");
+			return;
+		} finally {
+			response.getWriter().close();
+		}
+	}
+
+	public void login() throws IOException {
+		try {
+			String username = CommFun.ObjectToStr(request
+					.getParameter("username"));
+			String password = CommFun.ObjectToStr(request
+					.getParameter("password"));
+			String checkcode = CommFun.ObjectToStr(request
+					.getParameter("checkcode"));
+			if (username.trim().length() <= 0) {
+				response.getWriter().write("请输入帐号");
+				return;
+			}
+			if (password.trim().length() <= 0) {
+				response.getWriter().write("请输入密码");
+				return;
+			}
+			if (checkcode.trim().length() <= 0) {
+				response.getWriter().write("请输入验证码");
+				return;
+			}
+			List<Users> getlist = service.find(0, 1,
+					"username=? and password=?", new Object[] { username, password }, null);
+			if (getlist == null || getlist.size() == 0) {
+				response.getWriter().write("帐号/密码错误");
+				return;
+			}
+			Users user = getlist.get(0);
+			if (user.getUserid() <= 0) {
+				response.getWriter().write("帐号/密码错误");
+				return;
+			}
+			if (user.getLocked() != null && user.getLocked()) {
+				response.getWriter().write("帐号已被锁定");
+				return;
+			}
+			if (user.getDeleted() != null && user.getDeleted()) {
+				response.getWriter().write("帐号已被删除");
+				return;
+			}
+			response.getWriter().write("1");
+		} catch (Exception e) {
+			response.getWriter().write(e.getMessage());
 			return;
 		} finally {
 			response.getWriter().close();

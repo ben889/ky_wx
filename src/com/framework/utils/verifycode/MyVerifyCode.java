@@ -92,6 +92,7 @@ public class MyVerifyCode {
 		g2.fillRect(0, 0, w, h);
 
 		Color c = getRandColor(200, 250);
+		//Color c = Color.white;
 		g2.setColor(c);// 设置背景色
 		g2.fillRect(0, 2, w, h - 4);
 

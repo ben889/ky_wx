@@ -13,7 +13,7 @@
 		<action name="user_save" class="userAction">
 			<result name="success">/index.jsp</result>
 		</action>
-		<action name="SecurityCodeImageAction" class="securityCodeImageAction">
+		<action name="verifycode" class="securityCodeImageAction">
 			<result name="success" type="stream">
 				<param name="contentType">image/jpeg</param>
 				<param name="inputName">imageStream</param>
