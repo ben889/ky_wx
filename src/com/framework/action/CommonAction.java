@@ -6,7 +6,7 @@ import com.framework.domain.Users;
  */
 public class CommonAction<T> extends BaseAction<T> {
 	protected int userid;
-	protected int usertype;
+	protected String usertype;
 	protected int status;
 	protected String username;
 	

@@ -53,8 +53,7 @@
 					allowImageUpload: true,
 					allowFileManager : true,
 					uploadJson : "<%=basePath%>kingeditor/jsp/upload_json.jsp", // 文件上传处理URL
-					fileManagerJson : "<%=basePath%>
-	kingeditor/jsp/file_manager_json.jsp" // 文件管理处理URL
+					fileManagerJson : "<%=basePath%>kingeditor/jsp/file_manager_json.jsp" // 文件管理处理URL
 							});
 					//图片上传
 					$("#uploadimage").click(

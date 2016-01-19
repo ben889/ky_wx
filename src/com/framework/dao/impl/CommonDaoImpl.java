@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -68,6 +69,19 @@ public class CommonDaoImpl<T> extends HibernateDaoSupport implements
 				this.getHibernateTemplate().flush();
 			}
 		}
+	}
+
+	public void delete(String where) {
+		String hql = "delete " + entityClass.getSimpleName();
+		if (where != null && where.trim().length() > 0) {
+			hql = hql + " where " + where;
+		}
+		Session session = this.getHibernateTemplate().getSessionFactory().openSession();//获取session
+		Transaction tx = session.beginTransaction(); //打开事务（针对读数据库）
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		tx.commit();//提交事务
+		session.close(); //关闭session
 	}
 
 	/**
@@ -202,7 +216,7 @@ public class CommonDaoImpl<T> extends HibernateDaoSupport implements
 	 * @param orderby
 	 * @return
 	 */
-	public String orderByHql(Map<String, String> orderby) {
+	private String orderByHql(Map<String, String> orderby) {
 		StringBuffer buffer = new StringBuffer("");
 		if (orderby != null && orderby.size() > 0) {
 			buffer.append(" Order by ");

@@ -8,14 +8,14 @@ public class Tabs implements java.io.Serializable {
 
 	// Fields
 	private Integer tabid;
-	private String tabname;
-	private String taburl;
+	private String tabname = "";
+	private String taburl = "";
 	private Integer parentid;
 	private Integer level;
 	private Integer orderby;
-	private String icon;
+	private String icon = "";
 	private Boolean display;
-	private String tabkey;
+	private String tabkey = "";
 
 	// Constructors
 
@@ -24,8 +24,10 @@ public class Tabs implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Tabs(String tabname, String taburl, Integer parentid, Integer level,
-			Integer orderby, String icon, Boolean display, String tabkey) {
+	public Tabs(Integer tabid, String tabname, String taburl, Integer parentid,
+			Integer level, Integer orderby, String icon, Boolean display,
+			String tabkey) {
+		this.tabid = tabid;
 		this.tabname = tabname;
 		this.taburl = taburl;
 		this.parentid = parentid;
@@ -35,7 +37,6 @@ public class Tabs implements java.io.Serializable {
 		this.display = display;
 		this.tabkey = tabkey;
 	}
-	
 
 	// Property accessors
 	public Integer getTabid() {

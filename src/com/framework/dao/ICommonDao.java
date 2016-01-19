@@ -33,6 +33,7 @@ public interface ICommonDao<T> {
 	 * @param ids (类型：Serializable...)
 	 */
 	void delete(Serializable... ids);
+	void delete(String where);
 	/**
 	 * 查找
 	 * @param id (类型：Serializable)

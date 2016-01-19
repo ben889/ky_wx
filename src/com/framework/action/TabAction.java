@@ -1,5 +1,7 @@
 package com.framework.action;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,11 +70,11 @@ public class TabAction extends CommonAction<Tabs> {
 			}
 			sb.append("{\"url\":\"\",\"id\":\"admin\",\"name\":\"admin\",\"submenu\":[]},");
 			sb.append("{\"url\":\"\",\"id\":\"host\",\"name\":\"host\",\"submenu\":[]},");
-			
+
 			if (sb.toString().endsWith(",")) {
 				sb.deleteCharAt(sb.length() - 1);
 			}
-			
+
 			sb.append("]");
 			response.getWriter().write(sb.toString());
 		} catch (Exception e) {
@@ -84,32 +86,29 @@ public class TabAction extends CommonAction<Tabs> {
 	}
 
 	/** 获取子级菜单 **/
-	public void getSubMenuJson()throws Exception  {
+	public void getSubMenuJson() throws Exception {
 		try {
-			String result ="[]";
+			String result = "[]";
 			sb1 = new StringBuilder();
 			int pid = 0;
 			String parentidstr = request.getParameter("pid");
-			if (parentidstr.toLowerCase().equals("host"))
-			{
-					sb1.append("[{");
-					sb1.append("\"id\":\"datainit\",");
-					sb1.append("\"name\":\"刷新基础数据\",");
-					sb1.append("\"url\":\"console/datainit.jsp\",");
-					sb1.append("\"submenu\":[]");
-					sb1.append("},");
-					sb1.append("{");
-					sb1.append("\"id\":\"execsql\",");
-					sb1.append("\"name\":\"执行脚本\",");
-					sb1.append("\"url\":\"SQL/execSQL.jsp\",");
-					sb1.append("\"submenu\":[]");
-					sb1.append("}]");
-					
-					result =sb1.toString();
+			if (parentidstr.toLowerCase().equals("host")) {
+				sb1.append("[{");
+				sb1.append("\"id\":\"init\",");
+				sb1.append("\"name\":\"刷新基础数据\",");
+				sb1.append("\"url\":\"console/init.jsp\",");
+				sb1.append("\"submenu\":[]");
+				sb1.append("},");
+				sb1.append("{");
+				sb1.append("\"id\":\"execsql\",");
+				sb1.append("\"name\":\"执行脚本\",");
+				sb1.append("\"url\":\"SQL/execSQL.jsp\",");
+				sb1.append("\"submenu\":[]");
+				sb1.append("}]");
 
-			}
-			else if (parentidstr.toLowerCase().equals("admin"))
-			{
+				result = sb1.toString();
+
+			} else if (parentidstr.toLowerCase().equals("admin")) {
 				sb1.append("[{");
 				sb1.append("\"id\":\"users\",");
 				sb1.append("\"name\":\"帐号\",");
@@ -122,25 +121,23 @@ public class TabAction extends CommonAction<Tabs> {
 				sb1.append("\"url\":\"role/role_list\",");
 				sb1.append("\"submenu\":[]");
 				sb1.append("}]");
-				result =sb1.toString();
-			}
-			else
-			{
+				result = sb1.toString();
+			} else {
 				pid = Integer.parseInt(parentidstr);
 				result = getListMenu(pid);
 			}
-			
-			
+
 			response.getWriter().write(result);
 		} catch (Exception e) {
 			response.getWriter().write("[]");
-		}finally{
+		} finally {
 			response.getWriter().close();
 		}
 	}
 
 	StringBuilder sb1;
-	/**递归子级菜单 **/
+
+	/** 递归子级菜单 **/
 	private String getListMenu(int parentid) {
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -148,7 +145,8 @@ public class TabAction extends CommonAction<Tabs> {
 			if (parentid > 0) {
 				Map<String, String> orderby = new HashMap<String, String>(); // 排序
 				orderby.put("o.orderby", "asc");
-				List<Tabs> list = tabService.find(0, -1, " and parentid=?", new Object[] { parentid }, orderby);
+				List<Tabs> list = tabService.find(0, -1, "parentid=?",
+						new Object[] { parentid }, orderby);
 				if (list != null && list.size() > 0) {
 					for (Tabs info : list) {
 						sb.append("{");
@@ -160,8 +158,7 @@ public class TabAction extends CommonAction<Tabs> {
 					}
 				}
 			}
-			
-			
+
 			if (sb.toString().endsWith(",")) {
 				sb.deleteCharAt(sb.length() - 1);
 			}
@@ -176,7 +173,6 @@ public class TabAction extends CommonAction<Tabs> {
 	// 保存
 	public String save() {
 		try {
-
 			tabService.save(tab);
 			return "save";
 		} catch (Exception e) {
@@ -215,6 +211,36 @@ public class TabAction extends CommonAction<Tabs> {
 			return ERROR;
 		}
 	}
+
+	// ==================重新初始化
+	public void init() throws IOException {
+		try {
+			tabService.delete("");
+			List<Tabs> tabs = new ArrayList<Tabs>();
+			Tabs info = new Tabs(1, "内容发布", "", 0, 1, 99, "", true, "all");
+			tabs.add(info);
+			info = new Tabs(11, "文章", "article/article", 1, 2, 99, "", true,
+					"article");
+			tabs.add(info);
+			info = new Tabs(2, "会员", "", 0, 1, 99, "", true, "member");
+			tabs.add(info);
+			info = new Tabs(22, "会员列表", "member/member", 2, 2, 99, "", true,
+					"member");
+			tabs.add(info);
+			tabService.save(tabs);
+			response.getWriter().write(
+					"<script>parent.success('执行完毕');</script>");
+		} catch (Exception e) {
+			response.getWriter().write(
+					"<script>parent.fail('"
+							+ e.getMessage().replace("'", "").replace("\n", "")
+									.replace("\r", "") + "');</script>");
+			this.addActionError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	// =============================
 
 	/*------get set------*/
 	public Tabs getTab() {

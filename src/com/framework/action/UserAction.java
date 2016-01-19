@@ -253,6 +253,11 @@ public class UserAction extends BaseAction<Users> {
 		}
 	}
 
+	public void init()
+	{
+		service.init();
+	}
+	
 	/** ---------------------- get set ------------------------- **/
 	public Users getUser() {
 		return user;

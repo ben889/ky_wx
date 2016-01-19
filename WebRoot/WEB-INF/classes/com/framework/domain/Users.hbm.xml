@@ -25,7 +25,7 @@
         <property name="status" type="java.lang.Integer">
             <column name="status" />
         </property>
-        <property name="usertype" type="java.lang.Integer">
+        <property name="usertype" type="java.lang.String">
             <column name="usertype" />
         </property>
         <property name="deleted" type="java.lang.Boolean">

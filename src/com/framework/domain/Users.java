@@ -7,15 +7,15 @@ public class Users implements java.io.Serializable {
 
 	// Fields
 
-	private Integer userid;
-	private String username;
-	private String password;
+	private Integer userid = 0;
+	private String username = "";
+	private String password = "";
 	private String displayname = "";
 	private String email = "";
 	private Integer status = 0;
-	private Integer usertype = 3;
-	private Boolean deleted = false;
-	private Boolean locked = false;
+	private String usertype = "";
+	private Integer deleted = 0;
+	private Integer locked = 0;
 	private Integer createuserid = 0;
 	private Date createtime;
 	private String description = "";
@@ -35,8 +35,8 @@ public class Users implements java.io.Serializable {
 
 	/** full constructor */
 	public Users(String username, String password, String displayname,
-			String email, Integer status, Integer usertype, Boolean deleted,
-			Boolean locked, Integer createuserid, Timestamp createtime,
+			String email, Integer status, String usertype, Integer deleted,
+			Integer locked, Integer createuserid, Timestamp createtime,
 			String description, Timestamp lasttime) {
 		this.username = username;
 		this.password = password;
@@ -113,27 +113,27 @@ public class Users implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Integer getUsertype() {
+	public String getUsertype() {
 		return this.usertype;
 	}
 
-	public void setUsertype(Integer usertype) {
+	public void setUsertype(String usertype) {
 		this.usertype = usertype;
 	}
 
-	public Boolean getDeleted() {
+	public Integer getDeleted() {
 		return this.deleted;
 	}
 
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(Integer deleted) {
 		this.deleted = deleted;
 	}
 
-	public Boolean getLocked() {
+	public Integer getLocked() {
 		return this.locked;
 	}
 
-	public void setLocked(Boolean locked) {
+	public void setLocked(Integer locked) {
 		this.locked = locked;
 	}
 
