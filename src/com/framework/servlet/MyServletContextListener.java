@@ -11,6 +11,7 @@ import com.framework.dao.impl.Db;
 import com.framework.domain.Users;
 import com.framework.service.IUserService;
 import com.framework.service.impl.UserService;
+import com.framework.utils.MD5;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,15 +37,27 @@ public class MyServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		// new UserService().init();
+		//new UserService().init();
 		// service.init();
-
+		System.out.println("=======数据初始化＝＝＝＝＝＝＝＝＝UserService.init()========");
 		Date date = new Date();
 		Timestamp createtime = new Timestamp(date.getTime());
-		Users info = new Users("host", "h1234!@#$", "host", "", 0, "host",
-				0, 0, 0, createtime, "", createtime);
+
+		new MD5();
+		String password = MD5.GetMD5Code("h1234!@#$");
+		Users info = new Users("host", password, "host", "", 0, "host", 0, 0,
+				0, createtime, "", createtime);
 		try {
-			new Db().insert(info, "userid", true);
+			Boolean b = new Db().isExists(info, "username='host'");
+			if (!b) {
+				new Db().insert(info, "userid", true);
+			}
+			info = new Users("admin", password, "admin", "", 0, "admin", 0, 0,
+					0, createtime, "", createtime);
+			b = new Db().isExists(info, "username='admin'");
+			if (!b) {
+				new Db().insert(info, "userid", true);
+			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

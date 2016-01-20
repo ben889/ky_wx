@@ -28,7 +28,7 @@ public class LoginFilter extends Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		HttpSession session = request.getSession();
-		//ServletContext application = session.getServletContext();
+		// ServletContext application = session.getServletContext();
 		// 设置编码
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -44,16 +44,17 @@ public class LoginFilter extends Filter {
 
 		// 设置过滤
 		if (user != null || url.endsWith("login.jsp") || url.endsWith(".css")
-				|| url.endsWith(".js")|| url.endsWith(".gif") || url.endsWith(".png")
-				|| url.endsWith(".jpg")) {
+				|| url.endsWith(".js") || url.endsWith(".gif")
+				|| url.endsWith(".png") || url.endsWith(".jpg")) {
+			
 			// 放行
 			chain.doFilter(request, response);
 		} else {
 			String locationURL = request.getContextPath() + "/admin/login.jsp";
-			 PrintWriter out = response.getWriter();
-			 out.print("<script language>top.location.href='" + locationURL
-			 + "'</script>");
-			//response.sendRedirect(locationURL);
+			PrintWriter out = response.getWriter();
+			out.print("<script language>top.location.href='" + locationURL
+					+ "'</script>");
+			// response.sendRedirect(locationURL);
 		}
 	}
 

@@ -15,23 +15,22 @@ import java.util.List;
 import java.util.Map;
 
 public class JdbcHelper {
-	
+
 	/**
-     * 数据库连接地址
-     */
-    private static String url="jdbc:mysql://localhost:3306/myframe?user=root&password=123456&useUnicode=true&characterEncoding=UTF8";
-    /**
-     * 用户名
-     */
-    private static String userName="root";
-    /**
-     * 密码
-     */
-    private static String password="123456";
-     
-    //private static String driver;
- 
-	
+	 * 数据库连接地址
+	 */
+	private static String url = "jdbc:mysql://localhost:3306/myframe?user=root&password=123456&useUnicode=true&characterEncoding=UTF8";
+	/**
+	 * 用户名
+	 */
+	private static String userName = "root";
+	/**
+	 * 密码
+	 */
+	private static String password = "123456";
+
+	// private static String driver;
+
 	private static Connection conn = null;
 	private static PreparedStatement preparedStatement = null;
 	private static CallableStatement callableStatement = null;
@@ -463,7 +462,7 @@ public class JdbcHelper {
 		while (rs.next()) {
 			ResultSetMetaData md = rs.getMetaData();
 			Map map = new HashMap();
-			for (int i = 1; i < md.getColumnCount(); i++) {
+			for (int i = 1; i < md.getColumnCount() + 1; i++) {
 				map.put(md.getColumnLabel(i), rs.getObject(i));
 			}
 			list.add(map);
@@ -522,76 +521,78 @@ public class JdbcHelper {
 
 		free(null);
 	}
-	
-	
-	//=========================================================
+
+	// =========================================================
 	/**
-     * 建立数据库连接
-     * 
-     * @return
-     * @throws SQLException
-     */
-    public static Connection getConnection() throws SQLException {
-        Connection conn = null;
-        conn = DriverManager.getConnection(url, userName, password);
-        return conn;
-    }
- 
-    /**
-     * 释放连接
-     * @param conn
-     */
-    private static void freeConnection(Connection conn) {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
- 
-    /**
-     * 释放statement
-     * @param statement
-     */
-    private static void freeStatement(Statement statement) {
-        try {
-            statement.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
- 
-    /**
-     * 释放resultset
-     * @param rs
-     */
-    private static void freeResultSet(ResultSet rs) {
-        try {
-            rs.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
- 
-    /**
-     * 释放资源
-     * 
-     * @param conn
-     * @param statement
-     * @param rs
-     */
-    public static void free(Connection conn, Statement statement, ResultSet rs) {
-        if (rs != null) {
-            freeResultSet(rs);
-        }
-        if (statement != null) {
-            freeStatement(statement);
-        }
-        if (conn != null) {
-            freeConnection(conn);
-        }
-    }
+	 * 建立数据库连接
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Connection getConnection() throws SQLException {
+		Connection conn = null;
+		conn = DriverManager.getConnection(url, userName, password);
+		return conn;
+	}
+
+	/**
+	 * 释放连接
+	 * 
+	 * @param conn
+	 */
+	private static void freeConnection(Connection conn) {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 释放statement
+	 * 
+	 * @param statement
+	 */
+	private static void freeStatement(Statement statement) {
+		try {
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 释放resultset
+	 * 
+	 * @param rs
+	 */
+	private static void freeResultSet(ResultSet rs) {
+		try {
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 释放资源
+	 * 
+	 * @param conn
+	 * @param statement
+	 * @param rs
+	 */
+	public static void free(Connection conn, Statement statement, ResultSet rs) {
+		if (rs != null) {
+			freeResultSet(rs);
+		}
+		if (statement != null) {
+			freeStatement(statement);
+		}
+		if (conn != null) {
+			freeConnection(conn);
+		}
+	}
 }

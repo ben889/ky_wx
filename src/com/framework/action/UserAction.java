@@ -22,8 +22,13 @@ import com.opensymphony.xwork2.ActionContext;
  */
 // @Scope("prototype")
 @Controller("userAction")
-public class UserAction extends BaseAction<Users> {
+public class UserAction extends CommonAction<Users> {
 	private static final long serialVersionUID = 1L;
+
+	public UserAction() {
+		
+		System.out.println("=======UserAction========");
+	}
 
 	// 用户service
 	@Resource(name = IUserService.SERVICE_NAME)
@@ -110,9 +115,9 @@ public class UserAction extends BaseAction<Users> {
 
 			String locked = request.getParameter("locked"); // 是否锁定
 			if (locked == null || locked.equals("off")) {
-				user.setLocked(false);
+				user.setLocked(0);
 			} else if (locked.equals("on")) {
-				user.setLocked(true);
+				user.setLocked(1);
 			}
 			// 如果用户 id>0 执行更新方法
 			if (userid > 0) {
@@ -178,7 +183,7 @@ public class UserAction extends BaseAction<Users> {
 						.write("<script>alert('操作失败，ID有误');location.href='admin/user_list';</script>");
 				return;
 			}
-			boolean isLocked = "on".equals(locked) ? true : false;
+			Integer isLocked = "on".equals(locked) ? 1 : 0;
 			user.setLocked(isLocked);
 			user.setLasttime(new Date());
 			service.update(user); // 更新
@@ -214,12 +219,14 @@ public class UserAction extends BaseAction<Users> {
 				response.getWriter().write("请输入验证码");
 				return;
 			}
-			String session_chedkcode = session.getAttribute("veritycode").toString();
+			String session_chedkcode = session.getAttribute("veritycode")
+					.toString();
 			if (session_chedkcode == null) {
 				response.getWriter().write("验证码已过期");
 				return;
 			}
-			if (!session_chedkcode.trim().toLowerCase().equals(checkcode.trim())) {
+			if (!session_chedkcode.trim().toLowerCase()
+					.equals(checkcode.trim())) {
 				response.getWriter().write("验证码错误");
 				return;
 			}
@@ -235,11 +242,11 @@ public class UserAction extends BaseAction<Users> {
 				response.getWriter().write("帐号/密码错误");
 				return;
 			}
-			if (user.getLocked() != null && user.getLocked()) {
+			if (user.getLocked() != null && user.getLocked() == 1) {
 				response.getWriter().write("帐号已被锁定");
 				return;
 			}
-			if (user.getDeleted() != null && user.getDeleted()) {
+			if (user.getDeleted() != null && user.getDeleted() == 1) {
 				response.getWriter().write("帐号已被删除");
 				return;
 			}
@@ -253,11 +260,10 @@ public class UserAction extends BaseAction<Users> {
 		}
 	}
 
-	public void init()
-	{
+	public void init() {
 		service.init();
 	}
-	
+
 	/** ---------------------- get set ------------------------- **/
 	public Users getUser() {
 		return user;

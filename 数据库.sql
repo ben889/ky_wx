@@ -22,7 +22,7 @@ CREATE TABLE `roles` (
   `createdbyuserid` int(11) DEFAULT '0' COMMENT '创建者ID',
   `createdtime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`roleid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `tabpermission` */
 
@@ -63,14 +63,14 @@ CREATE TABLE `users` (
   `email` varchar(200) DEFAULT NULL COMMENT '邮箱',
   `status` int(11) DEFAULT '0' COMMENT '状态:0默认',
   `usertype` varchar(32) DEFAULT '2' COMMENT '用户类型:0超级管理员,1系统管理员,普通用户',
-  `deleted` tinyint(1) DEFAULT '0' COMMENT '删除:0默认,1删除',
-  `locked` tinyint(1) DEFAULT '0' COMMENT '锁定:0默认,1锁定',
+  `deleted` int(1) DEFAULT NULL COMMENT '删除:0默认,1删除',
+  `locked` int(1) DEFAULT NULL COMMENT '锁定:0默认,1锁定',
   `createuserid` int(11) DEFAULT '0' COMMENT '创建人ID',
   `createtime` datetime DEFAULT NULL COMMENT '创建时间',
   `description` varchar(1000) DEFAULT NULL COMMENT '描述',
   `lasttime` datetime DEFAULT NULL COMMENT '最后操作时间',
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

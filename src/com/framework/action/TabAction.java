@@ -22,6 +22,10 @@ import com.opensymphony.xwork2.ActionContext;
 public class TabAction extends CommonAction<Tabs> {
 	private static final long serialVersionUID = 1L;
 
+	public TabAction() {
+		System.out.println("=======TabAction========");
+	}
+
 	// TabService
 	@Resource(name = ITabService.SERVICE_NAME)
 	private ITabService tabService;
