@@ -40,7 +40,6 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T>, Serv
 	}
 	@Override
 	public void setServletResponse(HttpServletResponse res) {
-		
 		this.response = res;
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");

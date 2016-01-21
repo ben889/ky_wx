@@ -28,10 +28,10 @@
         <property name="usertype" type="java.lang.String">
             <column name="usertype" />
         </property>
-        <property name="deleted" type="java.lang.Boolean">
+        <property name="deleted" type="java.lang.Integer">
             <column name="deleted" />
         </property>
-        <property name="locked" type="java.lang.Boolean">
+        <property name="locked" type="java.lang.Integer">
             <column name="locked" />
         </property>
         <property name="createuserid" type="java.lang.Integer">

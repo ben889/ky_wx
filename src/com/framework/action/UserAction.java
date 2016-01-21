@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import com.framework.domain.Users;
 import com.framework.service.IUserService;
 import com.framework.utils.CommFun;
+import com.framework.utils.MD5;
 import com.framework.utils.pagination.PageInfo;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -232,7 +233,7 @@ public class UserAction extends CommonAction<Users> {
 			}
 			List<Users> getlist = service.find(0, 1,
 					"username=? and password=?", new String[] { username,
-							password }, null);
+							MD5.GetMD5Code(password) }, null);
 			if (getlist == null || getlist.size() == 0) {
 				response.getWriter().write("帐号/密码错误");
 				return;
@@ -260,9 +261,6 @@ public class UserAction extends CommonAction<Users> {
 		}
 	}
 
-	public void init() {
-		service.init();
-	}
 
 	/** ---------------------- get set ------------------------- **/
 	public Users getUser() {

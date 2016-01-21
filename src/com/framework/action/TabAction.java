@@ -228,7 +228,7 @@ public class TabAction extends CommonAction<Tabs> {
 			tabs.add(info);
 			info = new Tabs(2, "会员", "", 0, 1, 99, "", true, "member");
 			tabs.add(info);
-			info = new Tabs(22, "会员列表", "member/member", 2, 2, 99, "", true,
+			info = new Tabs(22, "会员列表", "/member/member", 2, 2, 99, "", true,
 					"member");
 			tabs.add(info);
 			tabService.save(tabs);
