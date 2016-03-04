@@ -20,6 +20,10 @@ public class TabpermissionAction extends BaseAction<Tabpermission> {
 	private Tabpermission tabpermission;
 	private int tabpermissionid;
 	
+	public boolean getPermission(long userid,String code)
+	{
+		return false;
+	}
 	
 	/*----get set----*/
 	public ITabpermissionService getTabpermissionService() {

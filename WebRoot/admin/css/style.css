@@ -25,7 +25,7 @@ form { padding: 0; margin: 0; }
 .header_height{height:10px;}
 .search { margin: 0; padding: 0px 0px; }
 .bottomborder { border-bottom: 1px solid #cccccc; }
-.textbox {border: #dddddd 1px solid; color: #333; height: 30px;line-height:30px;border-radius: 1px; }
+input[type="text"],.textbox {border: #dddddd 1px solid; color: #333; height: 30px;line-height:30px;border-radius: 1px; }
 .textarea{border: #dddddd 1px solid;margin:0;padding:0;}
 .select {height: 30px; border: 1px solid #dddddd; padding: 5px;margin:0; vertical-align: middle; border-radius: 0;}
 option { font-weight: normal; display: block; height: 20px; line-height: 20px; padding: 4px; font-size: 14px !important; }

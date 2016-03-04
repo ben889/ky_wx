@@ -29,6 +29,7 @@
 		<!-- Role action -->
 		<action name="role_*" class="roleAction" method="{1}">
 			<result name="list">/admin/role/view.jsp</result>
+			<result name="permission">/admin/role/role_permission.jsp</result>
 			<result name="edit">/admin/role/edit.jsp</result>
 			<result name="error">/admin/role/view.jsp</result>
 		</action>

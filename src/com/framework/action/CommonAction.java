@@ -2,6 +2,8 @@ package com.framework.action;
 
 import java.io.IOException;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.framework.domain.Users;
 
 @SuppressWarnings("all")
@@ -31,13 +33,18 @@ public class CommonAction<T> extends BaseAction<T> {
 //		}
 	}
 
-	protected void userInfo() {
-		user = (Users) request.getSession().getAttribute("user");
-		userid = user.getUserid();
-		usertype = user.getUsertype();
-		status = user.getStatus();
-		username = user.getUsername();
-		// return user;
+	protected void get_login_userinfo() {
+		try { 
+			user = (Users) request.getSession().getAttribute("user");
+			userid = user.getUserid();
+			usertype = user.getUsertype();
+			status = user.getStatus();
+			username = user.getUsername();
+			// return user;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

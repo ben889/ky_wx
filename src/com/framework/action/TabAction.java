@@ -23,6 +23,7 @@ public class TabAction extends CommonAction<Tabs> {
 	private static final long serialVersionUID = 1L;
 
 	public TabAction() {
+		
 		System.out.println("=======TabAction========");
 	}
 
@@ -56,6 +57,7 @@ public class TabAction extends CommonAction<Tabs> {
 
 	/** 一级菜单 **/
 	public void getMenuJson() throws Exception {
+		get_login_userinfo();
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		try {
@@ -72,13 +74,14 @@ public class TabAction extends CommonAction<Tabs> {
 							+ "\",\"submenu\":[]},");
 				}
 			}
-			sb.append("{\"url\":\"\",\"id\":\"admin\",\"name\":\"admin\",\"submenu\":[]},");
-			sb.append("{\"url\":\"\",\"id\":\"host\",\"name\":\"host\",\"submenu\":[]},");
-
+			if (this.usertype.equals("host") || this.usertype.equals("admin")) {
+				sb.append("{\"url\":\"\",\"id\":\"admin\",\"name\":\"admin\",\"submenu\":[]},");
+				if (!this.usertype.equals("admin"))
+					sb.append("{\"url\":\"\",\"id\":\"host\",\"name\":\"host\",\"submenu\":[]},");
+			}
 			if (sb.toString().endsWith(",")) {
 				sb.deleteCharAt(sb.length() - 1);
 			}
-
 			sb.append("]");
 			response.getWriter().write(sb.toString());
 		} catch (Exception e) {
@@ -215,7 +218,6 @@ public class TabAction extends CommonAction<Tabs> {
 			return ERROR;
 		}
 	}
-
 	// ==================重新初始化
 	public void init() throws IOException {
 		try {

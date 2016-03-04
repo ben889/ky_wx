@@ -10,12 +10,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title></title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
+<title></title>
+
 <!-- base style -->
 <link rel="stylesheet" href="<%=basePath%>admin/css/style.css"
 	type="text/css"></link>
@@ -73,10 +74,12 @@
 						<td><s:date name="#role.createdtime"
 								format="yyyy-MM-dd HH:mm:ss" />
 						</td>
-						<td><a
-							href="<%=basePath%>admin/role_edit?roleid=<s:property value="#role.roleid"/>">编辑
-						</a> | <a
-							href="<%=basePath%>admin/role_delete?roleid=<s:property value="#role.roleid"/>"
+						<td>
+						<a href="<%=basePath%>admin/role_edit?roleid=<s:property value="#role.roleid"/>">编辑
+						</a> | 
+						<a href="<%=basePath%>admin/role_permission?roleid=<s:property value="#role.roleid"/>">权限
+						</a> |
+						<a href="<%=basePath%>admin/role_delete?roleid=<s:property value="#role.roleid"/>"
 							onclick="return confirm('确定删除吗？');">删除</a></td>
 					</tr>
 				</s:iterator>

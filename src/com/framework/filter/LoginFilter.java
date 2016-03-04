@@ -36,7 +36,8 @@ public class LoginFilter extends Filter {
 
 		// 获取URL
 		String url = request.getRequestURL().toString();
-		System.out.println("=============doFilter=============\nurl:" + url); // test
+		System.out.println("=============doFilter=============\nurl:" + url); 
+		System.out.println("=============doFilter=============\nuri:" + request.getRequestURI()); 
 
 		// 在session中提取user
 		Users user = null;
