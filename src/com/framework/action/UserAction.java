@@ -167,14 +167,14 @@ public class UserAction extends CommonAction<Users> {
 	/**
 	 * 更新
 	 */
-	public void update() throws IOException {
+	public String update() throws IOException {
 		try {
 			userid = request.getParameter("userid") != null ? Integer
 					.parseInt(request.getParameter("userid").trim()) : 0;
 			if (userid <= 0) {
 				response.getWriter()
 						.write("<script>alert('操作失败，ID有误');location.href='admin/user_list';</script>");
-				return;
+				return "error";
 			}
 			String locked = request.getParameter("locked") != null ? request
 					.getParameter("locked").toString() : "off";
@@ -182,7 +182,7 @@ public class UserAction extends CommonAction<Users> {
 			if (user == null) {
 				response.getWriter()
 						.write("<script>alert('操作失败，ID有误');location.href='admin/user_list';</script>");
-				return;
+				return "error";
 			}
 			Integer isLocked = "on".equals(locked) ? 1 : 0;
 			user.setLocked(isLocked);
@@ -190,10 +190,11 @@ public class UserAction extends CommonAction<Users> {
 			service.update(user); // 更新
 			response.getWriter()
 					.write("<script>alert('更新成功');location.href='admin/user_list';</script>");
+			return "success";
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script>alert('更新失败');location.href='admin/user_list';</script>");
-			return;
+			return "error";
 		} finally {
 			response.getWriter().close();
 		}

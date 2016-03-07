@@ -27,7 +27,7 @@ public class JdbcHelper {
 	/**
 	 * 密码
 	 */
-	private static String password = "123456";
+	private static String password = "root";
 
 	// private static String driver;
 
